@@ -1,3 +1,5 @@
+const port = process.env.PORT || 8080
+
 describe('Blog app', function () {
   beforeEach(function () {
     cy.request('POST', 'http://localhost:3003/api/testing/reset')
@@ -13,7 +15,7 @@ describe('Blog app', function () {
       password: 'sososo'
     }
     cy.request('POST', 'http://localhost:3003/api/users', user2)
-    cy.visit('http://localhost:3000')
+    cy.visit(`http://localhost:${port}`)
   })
 
   it('Login form is shown', function () {

@@ -4,12 +4,15 @@
 /node_modules
 /.pnp
 .pnp.js
+cypress/videos
+cypress/screenshots
 
 # testing
 /coverage
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
