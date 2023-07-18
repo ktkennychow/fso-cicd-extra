@@ -14,8 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -36,9 +34,9 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           command: npm run test:e2e
-          start: npm run start-prod
-            echo 'server started'
-          wait-on: 'http://localhost:3003'
+          start: npm run start-test
+            echo 'test server started'
+          wait-on: 'http://localhost:8080'
       - name: Test Failure
         uses: rjstone/discord-webhook-notify@v1
         if: ${{(steps.build.outcome == 'success' && failure())}}
