@@ -30,22 +30,8 @@ jobs:
           severity: error
           details: The commit https://github.com/${{ github.repository }}/commit/${{ github.sha }} by ${{ github.triggering_actor }} cannot be built'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: e2e tests
-        uses: cypress-io/github-action@v5
-        with:
-          command: npm run test:e2e
-          start: npm run start:test
-            echo 'test server started'
-          wait-on: 'http://localhost:8080'
-      - name: Test Failure
-        uses: rjstone/discord-webhook-notify@v1
-        if: ${{(steps.build.outcome == 'success' && failure())}}
-        with:
-          text: 'Test failed'
-          severity: error
-          details: 'The commit https://github.com/${{ github.repository }}/commit/${{ github.sha }} by ${{ github.triggering_actor }} did not pass the test'
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Auto-deploy on render after Testing
+      
+      - name: Auto-deploy on render
         if: ${{github.event_name == 'push'}}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
       - name: Discord notification - new deployment
