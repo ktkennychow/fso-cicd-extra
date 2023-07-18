@@ -9,6 +9,7 @@ const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
+app.use(express.static('dist'))
 const mongoose = require('mongoose')
 
 logger.info('connecting to', config.MONGODB_URI)
@@ -25,12 +26,11 @@ app.use(cors())
 app.use(express.json())
 app.use(middleware.tokenExtractor)
 
+
 app.get('/health', (req, res) => {
   res.send('ok')
 })
-app.get('/', function (req, res) {
-  res.send('Hello world from Express!!')
-})
+
 
 app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
