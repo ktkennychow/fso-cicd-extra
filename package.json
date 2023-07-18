@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "serve": "webpack serve --mode development",
+    "dev-client": "react-scripts start",
+    "dev-server": "nodemon ./index.js localhost 8080",
     "build": "webpack --mode production",
-    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "test-dev": "cross-env NODE_ENV=test nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "start:test": "NODE_ENV=test nodemon index.js",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "start-prod": "node index.js",
+    "test:e2e": "cypress run"
   },
+  "proxy": "http://localhost:8080/",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -62,5 +63,17 @@
   "jest": {
     "testEnvironment": "node",
     "globalTeardown": "./tests/teardown.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
