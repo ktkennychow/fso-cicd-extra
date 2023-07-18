@@ -92,8 +92,8 @@ describe('Blog app', function () {
           cy.contains('view').click()
           cy.get('.blog').should('not.contain', 'remove')
         })
-        
-        it('shows blogs in a descending order of the likes they have', function() {
+
+        it('shows blogs in a descending order of the likes they have', function () {
           cy.get('.blog').eq(0).contains('view').click()// Blog One at the top
           cy.get('.blog').eq(1).contains('view').click()// Blog Two at the second
           cy.get('.blog').eq(1).contains('like').click()// Like Blog Two

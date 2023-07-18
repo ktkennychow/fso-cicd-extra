@@ -43,7 +43,7 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.put('/:id', async (request, response) => {
-  console.log('pid',request.params.id)
+  console.log('pid', request.params.id)
   const body = request.body
   const user = request.user
   const decodedToken = jwt.verify(request.token, process.env.SECRET)

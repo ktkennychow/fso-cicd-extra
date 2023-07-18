@@ -14,7 +14,7 @@ beforeEach(async () => {
     let blogObject = new Blog(blog)
     await blogObject.save()
   }
-}, 10_00000)
+}, 1000000)
 
 test('blogs are returned as JSON', async () => {
   const res = await api
@@ -22,7 +22,8 @@ test('blogs are returned as JSON', async () => {
     .set('Authorization', process.env.TEST_TOKEN)
     .expect(200)
     .expect('Content-Type', /application\/json/)
-}, 10_00000)
+  console.log(res)
+}, 1000000)
 
 test('unique identifier property of the blog posts is named id', async () => {
   const res = await api
@@ -35,9 +36,9 @@ test('unique identifier property of the blog posts is named id', async () => {
 
 test('making an HTTP POST request creates a new blog post', async () => {
   const newBlog = {
-    title: "I love Jeff Basil",
-    author: "Maya",
-    url: "www.amazon.com/blog/amazedballs",
+    title: 'I love Jeff Basil',
+    author: 'Maya',
+    url: 'www.amazon.com/blog/amazedballs',
   }
 
   await api
@@ -49,28 +50,28 @@ test('making an HTTP POST request creates a new blog post', async () => {
 
   const BlogsAtEnd = await helper.blogsInDb()
   expect(BlogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
-}, 10_00000)
+}, 1000000)
 
 test('adding a blog fails with 401 Unauthorized if a token is not provided', async () => {
   const newBlog = {
-    title: "no token",
-    author: "notoken",
-    url: "www.notoken.com",
+    title: 'no token',
+    author: 'notoken',
+    url: 'www.notoken.com',
   }
 
   await api
     .post('/api/blogs')
-    .set('Authorization', "")
+    .set('Authorization', '')
     .send(newBlog)
     .expect(401)
 
-}, 10_00000)
+}, 1000000)
 
 test('likes property default to the value 0 when missing', async () => {
   const newBlog = {
-    title: "I love Jeff Basil",
-    author: "Maya",
-    url: "www.amazon.com/blog/amazedballs",
+    title: 'I love Jeff Basil',
+    author: 'Maya',
+    url: 'www.amazon.com/blog/amazedballs',
   }
 
   await api
@@ -83,17 +84,17 @@ test('likes property default to the value 0 when missing', async () => {
   const BlogsAtEnd = await helper.blogsInDb()
   const lastBlog = BlogsAtEnd.slice(-1)[0]
   expect(lastBlog.likes).toEqual(0)
-}, 10_00000)
+}, 1000000)
 
 test('blog without url or title is not added', async () => {
   const newBlog1 = {
-    author: "Maya",
-    url: "www.amazon.com/blog/amazedballs",
+    author: 'Maya',
+    url: 'www.amazon.com/blog/amazedballs',
   }
 
   const newBlog2 = {
-    title: "hi",
-    author: "Maya",
+    title: 'hi',
+    author: 'Maya',
   }
 
   await api
@@ -147,7 +148,7 @@ test('add a like succeeds with status code 202 if id is valid', async () => {
   const blogsAtEnd = await helper.blogsInDb()
   expect(blogsAtEnd).toHaveLength(
     helper.initialBlogs.length)
-  
+
   const newLikes = blogToUpdate.likes
   expect(newLikes).toEqual(originalLikes + 1)
 })
