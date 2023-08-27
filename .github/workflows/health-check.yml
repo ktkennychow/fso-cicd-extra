@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '30 19 * * *'
+  # schedule:
+    # - cron: '30 19 * * *'
 
 jobs:
   scheduled_health_check:
